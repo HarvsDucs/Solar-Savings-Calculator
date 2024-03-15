@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+Results
+{% endblock %}
+
+{% block content %}
+
+
+<dl class="mx-12 -mt-20 max-w-md text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+    <div class="flex flex-col pb-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Captured Address</dt>
+        <dd class="text-lg font-semibold">{{ result.address }}</dd>
+    </div>
+    <div class="flex flex-col py-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Selected Monthly Electric Bill</dt>
+        <dd class="text-lg font-semibold">${{ result.selected_bill }}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Cash Paid Rebate Value</dt>
+        <dd class="text-lg font-semibold">${{ result.cash_paid_rebate_value }}</dd>
+    </div>
+    <h1>For financed payments @ 0.05 interest rate:</h1>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Savings after 1 year</dt>
+        <dd class="text-lg font-semibold">${{ result.calculated_savings_after_1_year }}</dd>
+    </div>
+    <div class="flex flex-col pt-3">
+        <dt class="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Savings after 20 years</dt>
+        <dd class="text-lg font-semibold">${{ result.calculated_savings_after_20_years }}</dd>
+    </div>
+</dl>
+{% endblock %}

@@ -68,3 +68,41 @@ if st.button('Calculate Savings') and address:
             st.write("Failed to retrieve solar savings data.")
     else:
         st.write("Failed to geocode address. Please check the address and try again.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/calculate', methods=['POST', 'GET'])
+def calculate():
+  if request.method == 'POST':
+    if request.form['action'] == 'calculate':
+      ppw = float(request.form['ppw'])
+      dealer_fees_percentage = float(request.form['dealer_fees_percentage'])
+      adders = float(request.form['adders'])
+      redline = float(request.form['redline'])
+      system_size = float(request.form['system_size'])
+  
+      commission = calculate_commission(system_size, ppw, adders, dealer_fees_percentage, redline)
+  
+      result = {
+      "commission": commission,
+      "ppw": ppw,
+      "dealer_fees_percentage": dealer_fees_percentage,
+      "adders": adders,
+      "redline": redline,
+      "system_size": system_size
+      }
+
+      return render_template('calculate.html', result = result)

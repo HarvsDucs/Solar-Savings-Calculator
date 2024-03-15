@@ -16,28 +16,64 @@
       });
   </script>
   <title>{% block title %}{% endblock %} - Solar Sales App</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
 <body>
 
   <form action="/calculate" method="post">
 <!--
 // v0 by Vercel.
-// https://v0.dev/t/E49MBGhF1sY
+// https://v0.dev/t/NfNeMh3ZpAe
 -->
-<div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card"><div class="flex flex-col space-y-1.5 p-6"><h3 class="font-semibold whitespace-nowrap tracking-tight text-lg">
-    Solar Savings Calculator
-  </h3><p class="text-sm text-muted-foreground">
-    Input your address and monthly electric bill to calculate your
-    estimated solar savings.
-  </p></div><div class="p-6 space-y-4"><div class="grid grid-cols-1 gap-4"><div class="grid grid-cols-1 gap-2"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="address">
-        Address
-      </label><input class="flex h-10 rounded-md border border-input bg-background px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full text-sm" id="address" placeholder="Enter your address" type="text"></div><div class="grid grid-cols-1 gap-2"><div class="flex items-center gap-2"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="monthly-bill">
-          Monthly Electric Bill
-        </label><button class="inline-flex items-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 peer w-[120px] text-left justify-start" id="monthly-bill" aria-haspopup="true" aria-expanded="true" type="button" data-state="closed">
-              Select
-              <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400 peer-hover:text-gray-600 transition-color"><path d="m6 9 6 6 6-6"></path></svg></span></button></div></div></div><button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Calculate</button></div></div>
+<section class="w-full pt-12 md:pt-24 lg:pt-32"><div class="container space-y-10 xl:space-y-16"><div class="grid gap-4 px-10 md:grid-cols-2 md:gap-16"><div><h1 class="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
+  Solar Savings Calculator
+</h1>
+<p class="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+  Input your address and monthly electric bill to calculate your estimated solar savings.
+</p></div><div class="flex flex-col items-start space-y-4"><div class="grid grid-cols-1 gap-4"><div class="grid grid-cols-1 gap-2"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="address">
+      Address
+    </label>
+
+    <input class="flex h-10 rounded-md border border-input bg-background ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full text-sm p-2" id="address" name="address"placeholder="Enter your address" type="text"></div>
+
+
+
+
+    <form class="max-w-sm mx-auto">
+      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+      <select name="selected_bill" id="selected_bill" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Choose an amount</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="60">60</option>
+          <option value="70">70</option>
+          <option value="80">80</option>
+          <option value="90">90</option>
+          <option value="100">100</option>
+          <option value="125">125</option>
+          <option value="150">150</option>
+          <option value="175">175</option>
+          <option value="200">200</option>
+          <option value="225">225</option>
+          <option value="250">250</option>
+          <option value="300">300</option>
+          <option value="350">350</option>
+          <option value="400">400</option>
+          <option value="450">450</option>
+          <option value="500">500</option>
+      </select>
+      
+    </form>
+    
+
+  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Calculate</button>
+</div></div></div></section>
+
+
 </form>
 
 {% block content %}{% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     </body>
 </html>
