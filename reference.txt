@@ -1,0 +1,70 @@
+import streamlit as st
+import requests
+import os
+
+# Title of the app
+st.title('Solar Savings Calculator')
+
+# Input for address
+address = st.text_input("Enter your address", placeholder="1234 Main St, Anytown, Country")
+
+# List of electric bill values
+bill_values = [40, 45, 50, 60, 70, 80, 90, 100, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500]
+
+# Adding a select slider for the electric bill
+selected_bill = st.select_slider(
+    'Select your monthly electric bill',
+    options=bill_values,
+    format_func=lambda x: f"${x}"
+)
+
+# Calculate index for financial analysis based on selected bill
+if selected_bill in bill_values:
+    i = bill_values.index(selected_bill)
+
+# Button to trigger the calculation
+if st.button('Calculate Savings') and address:
+    # Use your API key stored in environment variable
+    api_key = os.environ.get('API_KEY')
+
+    # Geocoding API request
+    geocode_url = f"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={api_key}"
+    geocode_response = requests.get(geocode_url)
+
+    if geocode_response.status_code == 200:
+        geocode_data = geocode_response.json()
+        location = geocode_data["results"][0]["formatted_address"]
+        latitude = geocode_data["results"][0]["geometry"]["location"]["lat"]
+        longitude = geocode_data["results"][0]["geometry"]["location"]["lng"]
+
+        st.write(f'Captured address at: {location}')
+
+        # Solar API request
+        solar_api_url = "https://solar.googleapis.com/v1/buildingInsights:findClosest"
+        params = {
+            'location.latitude': latitude,
+            'location.longitude': longitude,
+            'key': api_key
+        }
+        solar_response = requests.get(solar_api_url, params=params)
+
+        if solar_response.status_code == 200:
+            solar_data = solar_response.json()
+
+            # Assuming 'i' is correctly determined by your logic; you might need to adjust this based on actual API response structure
+            # Displaying results from the solar potential data
+            monthly_bill_units = solar_data["solarPotential"]["financialAnalyses"][i]["monthlyBill"]["units"]
+            st.write(f"Monthly Electric Bill: ${monthly_bill_units}")
+
+            rebate_value_units = solar_data["solarPotential"]["financialAnalyses"][i]["cashPurchaseSavings"]["rebateValue"]["units"]
+            st.write(f"#### Cash Paid Rebate Value: ${rebate_value_units}")
+
+            savings_year1_units = solar_data["solarPotential"]["financialAnalyses"][i]["financedPurchaseSavings"]["savings"]["savingsYear1"]["units"]
+            st.write(f"#### Savings after 1 year: ${savings_year1_units}")
+
+            savings_year20_units = solar_data["solarPotential"]["financialAnalyses"][i]["financedPurchaseSavings"]["savings"]["savingsYear20"]["units"]
+            st.write(f"#### Savings after 20 years: ${savings_year20_units}")
+        else:
+            st.write("Failed to retrieve solar savings data.")
+    else:
+        st.write("Failed to geocode address. Please check the address and try again.")

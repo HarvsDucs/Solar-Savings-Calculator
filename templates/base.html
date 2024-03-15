@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="static/src/output.css" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('#toggleButton').click(function() {
+              $.post('/toggle', function(data) {
+                  $('#counter').text(data.counter);
+              });
+          });
+      });
+  </script>
+  <title>{% block title %}{% endblock %} - Solar Sales App</title>
+</head>
+<body>
+
+  <form action="/calculate" method="post">
+<!--
+// v0 by Vercel.
+// https://v0.dev/t/E49MBGhF1sY
+-->
+<div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card"><div class="flex flex-col space-y-1.5 p-6"><h3 class="font-semibold whitespace-nowrap tracking-tight text-lg">
+    Solar Savings Calculator
+  </h3><p class="text-sm text-muted-foreground">
+    Input your address and monthly electric bill to calculate your
+    estimated solar savings.
+  </p></div><div class="p-6 space-y-4"><div class="grid grid-cols-1 gap-4"><div class="grid grid-cols-1 gap-2"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="address">
+        Address
+      </label><input class="flex h-10 rounded-md border border-input bg-background px-3 py-2 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full text-sm" id="address" placeholder="Enter your address" type="text"></div><div class="grid grid-cols-1 gap-2"><div class="flex items-center gap-2"><label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-sm" for="monthly-bill">
+          Monthly Electric Bill
+        </label><button class="inline-flex items-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 peer w-[120px] text-left justify-start" id="monthly-bill" aria-haspopup="true" aria-expanded="true" type="button" data-state="closed">
+              Select
+              <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-gray-400 peer-hover:text-gray-600 transition-color"><path d="m6 9 6 6 6-6"></path></svg></span></button></div></div></div><button class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-9 rounded-md px-3">Calculate</button></div></div>
+</form>
+
+{% block content %}{% endblock %}
+    </body>
+</html>
